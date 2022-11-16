@@ -21,12 +21,18 @@ pipeline{
             sh "mv target/*war target/myweb.war"
         }
         stage("Deploy in Tomcat server"){
-          sshagent(['tomcat-new']) {
+            steps{
+               sshagent(['tomcat-new']) {
              sh """
-        
-             scp -o StrictHostKeyChecking=no target/myweb.war ubuntu@ec2-43-204-102-242.ap-south-1.compute.amazonaws.com:/opt/tomcat/webapps
+             sh """
+              scp -o StrictHostKeyChecking=no target/myweb.war ubuntu@ec2-43-204-102-242.ap-south-1.compute.amazonaws.com:/opt/tomcat/webapps/
+              shh ubuntu@ec2-43-204-102-242.ap-south-1.compute.amazonaws.com:/opt/tomcat/bin/shutdown.sh
+              shh ubuntu@ec2-43-204-102-242.ap-south-1.compute.amazonaws.com:/opt/tomcat/bin/shutdown.sh
+             
              """
         }
+        }
+    
         }
     }
 }
