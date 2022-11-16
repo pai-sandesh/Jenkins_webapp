@@ -23,7 +23,7 @@ pipeline{
         stage("Deploy in Tomcat server"){
           sshagent(['tomcat-new']) {
              sh """
-          
+        
              scp -o StrictHostKeyChecking=no target/myweb.war ubuntu@ec2-43-204-102-242.ap-south-1.compute.amazonaws.com:/opt/tomcat/webapps
              """
         }
