@@ -20,6 +20,8 @@ pipeline{
             sh 'mvn clean package'
             sh "mv target/*war target/myweb.war"
         }
+        }
+
         stage("Deploy in Tomcat server"){
             steps{
                sshagent(['tomcat-new']) {
@@ -36,4 +38,3 @@ pipeline{
     }
 }
 
-}
